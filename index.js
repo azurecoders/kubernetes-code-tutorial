@@ -1,11 +1,11 @@
-const express = require("express")
+const express = require("express");
 // const mongoose = require("mongoose")
 
-const app = express()
+const app = express();
 
-const PORT = process.env.PORT || 3000
-const APP_NAME = process.env.APP_NAME || "My Node.Js App"
-const ENVIRONMENT = process.env.ENVIRONMENT || "development"
+const PORT = process.env.PORT || 3000;
+const APP_NAME = process.env.APP_NAME || "My Node.Js App";
+const ENVIRONMENT = process.env.ENVIRONMENT || "development";
 // const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost:27017/my-app"
 
 // mongoose.connect(MONGODB_URI).then(() => {
@@ -29,25 +29,31 @@ const ENVIRONMENT = process.env.ENVIRONMENT || "development"
 
 // const Message = mongoose.model("Message", messageSchema)
 
-app.use(express.json())
+app.use(express.json());
 
-app.get("/",(req,res) => {
-    res.json({
-        message: `Hello from ${APP_NAME}`,
-        environment: ENVIRONMENT,
-        timestamp: new Date().toISOString(),
-        hostname: require("os").hostname()
-    })
-})
+app.get("/", (req, res) => {
+  res.json({
+    message: `Hello from ${APP_NAME}`,
+    environment: ENVIRONMENT,
+    timestamp: new Date().toISOString(),
+    hostname: require("os").hostname(),
+  });
+});
 
-app.get("/health", (req,res) => {
-    try {
+app.get("/health", (req, res) => {
+  try {
     // const dbStatus = mongoose.connection.isReady == "1" ? "connected" : "not connected"
-    res.json({status: "healthy"})
-    } catch (err) {
-        res.status(503).json({status: "unhealthy"})
-    }
-})
+    res.json({ status: "healthy" });
+  } catch (err) {
+    res.status(503).json({ status: "unhealthy" });
+  }
+});
+
+app.get("/version", (req, res) => {
+  res.json({
+    version: "v2",
+  });
+});
 
 // app.post("/message", async (req,res) => {
 //     try {
@@ -69,6 +75,12 @@ app.get("/health", (req,res) => {
 //     }
 // })
 
-app.listen(PORT, () => {
-        console.log(`${APP_NAME} is running on port ${PORT} in ${ENVIRONMENT} mode`)
-})
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(
+      `${APP_NAME} is running on port ${PORT} in ${ENVIRONMENT} mode`,
+    );
+  });
+}
+
+module.exports = app;

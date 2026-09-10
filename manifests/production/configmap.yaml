@@ -4,6 +4,6 @@ metadata:
   name: my-node-app-config
   namespace: production
 data:
-  PORT: "3000"
-  APP_NAME: "My Node.Js App - Kubernetes"
+  APP_NAME: "My Node App"
   ENVIRONMENT: "development"
+  PORT: "3000"

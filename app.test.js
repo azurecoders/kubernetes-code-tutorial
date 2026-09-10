@@ -32,7 +32,7 @@ describe("Node.js API", () => {
 
       expect(response.statusCode).toBe(200);
       expect(response.body).toEqual({
-        version: "v2",
+        version: "v1",
       });
     });
   });

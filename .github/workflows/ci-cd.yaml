@@ -55,7 +55,10 @@ jobs:
 
   deploy:
     name: Deploy to Minikube
-    runs-on: self-hosted
+    runs-on:
+    - self-hosted
+    - Linux
+    - X64
     needs: build
 
     steps:
